@@ -47,7 +47,7 @@ img { max-width: 100%; }
 }
 
 th { font-size: 12px; font-weight: normal; text-align: center; color: #fff;}
-td { font-size: 13px; color: #fff;  text-align: center;}
+td { font-size: 13px; color: #f00;  text-align: center;}
 
 ::-moz-selection { background: #f35b3f; color: #fff; text-shadow: none; }
 ::selection { background: #f35b3f; color: #fff; text-shadow: none; }
