@@ -3,43 +3,58 @@ const http         = require('http'),
       path         = require('path'),
       contentTypes = require('./utils/content-types'),
       sysInfo      = require('./utils/sys-info'),
-      env          = process.env;
+      math         = require('mathjs'),
+      env          = process.env,
+      express = require('express'),
+      bodyParser = require('body-parser'),
+      urlencodedParser = bodyParser.urlencoded({ extended: false }),
+      app = express(),
+      exphbs = require('express-handlebars');
 
-let server = http.createServer(function (req, res) {
-  let url = req.url;
-  if (url == '/') {
-    url += 'index.html';
-  }
 
-  // IMPORTANT: Your application HAS to respond to GET /health with status 200
-  //            for OpenShift health monitoring
+app.use('/static', express.static(path.join(__dirname, 'static')));
+app.engine('.hbs', exphbs({defaultLayout: 'single', extname: '.hbs'}));
+app.set('view engine', '.hbs');
 
-  if (url == '/health') {
-    res.writeHead(200);
-    res.end();
-  } else if (url == '/info/gen' || url == '/info/poll') {
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Cache-Control', 'no-cache, no-store');
-    res.end(JSON.stringify(sysInfo[url.slice(6)]()));
-  } else {
-    fs.readFile('./static' + url, function (err, data) {
-      if (err) {
-        res.writeHead(404);
-        res.end('Not found');
-      } else {
-        let ext = path.extname(url).slice(1);
-        if (contentTypes[ext]) {
-          res.setHeader('Content-Type', contentTypes[ext]);
-        }
-        if (ext === 'html') {
-          res.setHeader('Cache-Control', 'no-cache, no-store');
-        }
-        res.end(data);
-      }
-    });
-  }
-});
+/* ROUTES */
+app.get('/health', function (req, res) {
+  res.writeHead(200);
+  res.end();
+})
 
-server.listen(env.NODE_PORT || 3000, env.NODE_IP || 'localhost', function () {
+app.get('/', function (req, res){
+  res.render('intro.hbs');
+})
+app.post('/postdata', urlencodedParser, function (req, res) {
+  var doc = { age: req.body.age,
+              cardiac: req.body.cardiac,
+              resp: req.body.resp,
+              ecg: req.body.ecg,
+              sys: req.body.sys,
+              pulse: req.body.pulse,
+              hb: req.body.hb,
+              wbc: req.body.wbc,
+              ur: req.body.ur,
+              na: req.body.na,
+              pot: req.body.pot,
+              gcs: req.body.gcs
+            };
+
+  var possum = {};
+  possum.ps =  parseInt(doc.age)+parseInt(doc.cardiac)+
+               parseInt(doc.resp)+parseInt(doc.ecg)+
+               parseInt(doc.sys)+parseInt(doc.pulse)+
+               parseInt(doc.hb)+parseInt(doc.wbc)+
+               parseInt(doc.ur)+parseInt(doc.na)+
+               parseInt(doc.pot)+parseInt(doc.gcs);
+  var a = -6.0386+(0.1539*possum.ps);
+  var b = -2.7569+(0.0968*possum.ps);
+  possum.vpm = math.round((Math.exp(a)/(1+Math.exp(a))*100),2);
+  possum.rpm = math.round((Math.exp(b)/(1+Math.exp(b))*100),2);
+
+  res.render('score.hbs', possum);
+})
+
+app.listen(env.NODE_PORT || 3000, env.NODE_IP || 'localhost', function () {
   console.log(`Application worker ${process.pid} started...`);
 });
