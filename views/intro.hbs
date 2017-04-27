@@ -1,114 +1,310 @@
-<div class="f1">
-<form id="surveyform" action='/postdata' method='post' enctype='application/x-www-form-urlencoded' class="f1">
-  <table cellpadding="2" cellspacing="0" class="table_blue">
-    <tr>
-      <td class="table_hblue"><strong>Age</strong></td>
-      <td class="table_blue_lines"><select name="age" id="age">
-        <option value="1" selected="selected">'&lt;' 60 yrs old</option>
-        <option value="2">61 - 70 yrs old</option>
-        <option value="4">'&gt;' 71 yrs old</option>
-      </select></td>
-    </tr>
-    <tr>
-      <td class="table_hblue"><strong>Heart</strong></td>
-      <td class="table_blue_lines"><select name="cardiac" id="cardiac">
-        <option value="1" selected="selected">Normal</option>
-        <option value="2">cardiac drugs or steroids</option>
-        <option value="4">peripheral oedema,warfarin,myopathy</option>
-        <option value="8">raised JVP, cardiomegaly</option>
-        </select></td>
-      </tr>
-      <tr>
-        <td class="table_hblue"><strong>Lungs</strong></td>
-        <td class="table_blue_lines"><select name="resp" id="resp">
-          <option value="1" selected="selected">No dyspnoea</option>
-          <option value="2">Shortness of breath on exertion</option>
-          <option value="4">Short of breath on stairs</option>
-          <option value="8">dyspnoea at rest, any other</option>
-          </select></td>
-        </tr>
-        <tr>
-          <td class="table_hblue"><strong>ECG</strong></td>
-          <td class="table_blue_lines"><select name="ecg" id="ecg">
-            <option value="1" selected="selected">ECG normal</option>
-            <option value="4">ECG = AF, rate 60-90</option>
-            <option value="8">ECG = any other abnormal rhythm</option>
-            </select></td>
-          </tr>
-          <tr>
-            <td class="table_hblue"><strong>Sys BP</strong></td>
-            <td class="table_blue_lines"><select name="sys" id="sys">
-              <option value="1" selected="selected">110 - 129 mmHg</option>
-              <option value="2">100 - 109 or 130 - 170 mmHg</option>
-              <option value="4">'&gt;'170, or 90 - 99 mmHg</option>
-              <option value="8">'&lt;' 90 mmHg</option>
-            </select></td>
-          </tr>
-          <tr>
-            <td class="table_hblue"><strong>HR</strong></td>
-            <td class="table_blue_lines"><select name="pulse" id="pulse">
-              <option value="1" selected="selected">50 - 80 bpm</option>
-              <option value="2">40 - 49 or 81 - 100 bpm</option>
-              <option value="4">101 - 120 bpm</option>
-              <option value="8">'&lt;'40 or '&gt;' 120 bpm</option>
-            </select></td>
-          </tr>
-          <tr>
-            <td class="table_hblue"><strong>Hb</strong></td>
-            <td class="table_blue_lines"><select name="hb" id="hb">
-              <option value="1" selected="selected">13 - 16 g/dl</option>
-              <option value="2">11.5 - 12.9 or 16.1 - 17 g/dl</option>
-              <option value="4">10 - 11.4 or 17.1 - 18 g/dl</option>
-              <option value="8">'&lt;'10 or '&gt;'18 g/dl</option>
-            </select></td>
-          </tr>
-          <tr>
-            <td class="table_hblue"><strong>WBC</strong></td>
-            <td class="table_blue_lines"><select name="wbc" id="wbc">
-              <option value="1" selected="selected">4 - 10</option>
-              <option value="2">10.1 - 20 or 3.1 - 4</option>
-              <option value="4">'&gt;'20 or '&lt;'3</option>
-            </select></td>
-          </tr>
-          <tr>
-            <td class="table_hblue"><strong>Azotemia</strong></td>
-            <td class="table_blue_lines"><select name="ur" id="ur">
-              <option value="1" selected="selected">'&lt;'45</option>
-              <option value="2">46 - 60</option>
-              <option value="4">61 - 90</option>
-              <option value="8">'&gt;'90</option>
-            </select></td>
-          </tr>
-          <tr>
-            <td class="table_hblue"><strong>Na</strong></td>
-            <td class="table_blue_lines"><select name="na" id="na">
-              <option value="1" selected="selected">'&gt;'136 mmol/l</option>
-              <option value="2">131 - 135 mmol/l</option>
-              <option value="4">126 - 130 mmol/l</option>
-              <option value="8">'&lt;'126 mmol/l</option>
-            </select></td>
-          </tr>
-          <tr>
-            <td class="table_hblue"><strong>K</strong></td>
-            <td class="table_blue_lines"><select name="pot" id="pot">
-              <option value="1" selected="selected">3.5 - 5 mmol/l</option>
-              <option value="2">3.2 - 3.4 or 5.1 - 5.3 mmol/l</option>
-              <option value="4">2.9 - 3.1 or 5.4 - 5.9 mmol/l</option>
-              <option value="8">'&lt;'2.9 or '&gt;'5.9 mmol/l</option>
-            </select></td>
-          </tr>
-          <tr>
-            <td class="table_hblue"><strong>GCS</strong></td>
-            <td class="table_blue_lines"><select name="gcs" id="gcs">
-              <option value="1" selected="selected">15</option>
-              <option value="2">12 - 14</option>
-              <option value="4">9 - 11</option>
-              <option value="8">'&lt;'9</option>
-            </select></td>
-          </tr>
-        </table>
-        <div class="f1-buttons">
-             <button type="submit" class="btn btn-next">Calculate</button>
-        </div>
+<form id="surveyform" action='/postdata' method='post' enctype='application/x-www-form-urlencoded'>
+  <h1>Possum Score</h1>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>Age:</h2>
+      <label class="btn active">
+          <input type="radio" name='age' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> '&lt;' 60 yrs old</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='age' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> 61 - 70 yrs old</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='age' value="4">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> '&gt;' 71 yrs old</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>Heart:</h2>
+      <label class="btn active">
+          <input type="radio" name='cardiac' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> Normal</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='cardiac' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> cardiac drugs or steroids</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='cardiac' value="4">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> peripheral oedema, warfarin, myopathy</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='cardiac' value="8">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> raised JVP, cardiomegaly</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>Lungs:</h2>
+      <label class="btn active">
+          <input type="radio" name='resp' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> No dyspnoea</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='resp' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> Shortness of breath on exertion</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='resp' value="4">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> Short of breath on stairs</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='resp' value="8">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> dyspnoea at rest, any other</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>ECG:</h2>
+      <label class="btn active">
+          <input type="radio" name='ecg' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> Normal</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='ecg' value="4">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> ECG = AF, rate 60-90</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='ecg' value="8">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> ECG = any other abnormal rhythm</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>Systolic BP:</h2>
+      <label class="btn active">
+          <input type="radio" name='sys' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 110 - 129 mmHg</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='sys' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> 100 - 109 or 130 - 170 mmHg</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='sys' value="4">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> '&gt;'170, or 90 - 99 mmHg</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='sys' value="8">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> '&lt;' 90 mmHg</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>Heart Rate:</h2>
+      <label class="btn active">
+          <input type="radio" name='pulse' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 50 - 80 bpm</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='pulse' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> 40 - 49 or 81 - 100 bpm</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='pulse' value="4">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 101 - 120 bpm</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='pulse' value="8">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> '&lt;'40 or '&gt;' 120 bpm</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>Haemoglobin:</h2>
+      <label class="btn active">
+          <input type="radio" name='hb' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 13 - 16 g/dl</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='hb' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> 11.5 - 12.9 or 16.1 - 17 g/dl</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='hb' value="4">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 10 - 11.4 or 17.1 - 18 g/dl</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='hb' value="8">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> '&lt;'10 or '&gt;'18 g/dl</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>White Blood Count:</h2>
+      <label class="btn active">
+          <input type="radio" name='wbc' value="1" checked>
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> 4 - 10</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='wbc' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> 10.1 - 20 or 3.1 - 4</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='wbc' value="4">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> '&gt;'20 or '&lt;'3</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>Urea:</h2>
+      <label class="btn active">
+          <input type="radio" name='ur' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> '&lt;'45 mg/dl</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='ur' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> 46 - 60 mg/dl</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='ur' value="4">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 61 - 90 mg/dl</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='ur' value="8">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> '&gt;'90 mg/dl</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>Sodium:</h2>
+      <label class="btn active">
+          <input type="radio" name='na' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> '&gt;'136 mmol/l</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='na' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> 131 - 135 mmol/l</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='na' value="4">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 126 - 130 mmol/l</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='na' value="8">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> '&lt;'126 mmol/l</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>Potassium:</h2>
+      <label class="btn active">
+          <input type="radio" name='pot' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 3.5 - 5 mmol/l</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='pot' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> 3.2 - 3.4 or 5.1 - 5.3 mmol/l</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='pot' value="4">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 2.9 - 3.1 or 5.4 - 5.9 mmol/l</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='pot' value="8">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> '&lt;'2.9 or '&gt;'5.9 mmol/l</span>
+      </label>
+  </div>
+  <div class="btn-group btn-group-vertical" data-toggle="buttons">
+      <h2>Glasgow Coma Scale:</h2>
+      <label class="btn active">
+          <input type="radio" name='gcs' value="1" checked>
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 15</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='gcs' value="2">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> 12 - 14</span>
+      </label>
+      <label class="btn">
+            <input type="radio" name='gcs' value="4">
+            <i class="fa fa-circle-o fa-2x"></i>
+            <i class="fa fa-dot-circle-o fa-2x"></i>
+            <span> 9 - 11</span>
+      </label>
+      <label class="btn">
+          <input type="radio" name='gcs' value="8">
+          <i class="fa fa-circle-o fa-2x"></i>
+          <i class="fa fa-dot-circle-o fa-2x"></i>
+          <span> '&lt;'9</span>
+      </label>
+  </div>
+  <button type="submit" class="btn">Calculate</button>
 </form>
-</div>

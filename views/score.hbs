@@ -1,5 +1,106 @@
-<div class="f1">
-  <h4>Physiology score: <span style="color: red;">{{ps}}</span></h4>
-  <h4>V-POSSUM Mortality: <span style="color: red;">{{vpm}}%</span></h4>
-  <h4>RAAA-POSSUM Mortality: <span style="color: red;">{{rpm}}%</span></h4>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var tmp = [];
+    var z = 1;
+    tmp[0] = [
+      {label: 'PS', id: 'ps', type: 'number'},
+      {type: 'string', role:'annotation'},
+      {type: 'string', role:'annotationText'},
+      {label: 'VPOSSUM', id: 'Vpossum', type: 'number'},
+      {type: 'string', role:'annotation'},
+      {type: 'string', role:'annotationText'},
+      {label: 'RAAA-POSSUM', id: 'RAAA-possum', type: 'number'},
+      {type: 'string', role:'annotation'},
+      {type: 'string', role:'annotationText'}];
+
+    for (var i = 12; i < 89; i++) {
+      tmp[z] = [
+        i,
+        null, null,
+        (1/(1+Math.exp(-1*(-6.0386+(0.1539*i)))))*100,
+        null, null,
+        (1/(1+Math.exp(-1*(-2.7569+(0.0968*i)))))*100,
+        null, null
+      ];
+      z++;
+    }
+    var idx = parseInt('{{{ps}}}') - 11;
+    console.log(idx);
+    //tmp[idx][1] = 'PS = ' + {{{ps}}};
+    //tmp[idx][2] = 'Phisiology Score';
+    tmp[idx][4] = ' '+{{{vpm}}}+'% ';
+    tmp[idx][5] = 'V-POSSUM Death Rate';
+    tmp[idx][7] = ' '+{{{rpm}}}+'%';
+    tmp[idx][8] = 'RAAA-POSSUM Death Rate';
+
+    var data = google.visualization.arrayToDataTable(tmp);
+
+    var options = {
+      title: 'Vascular Possum Mortality Rate (PS Only)',
+      curveType: 'function',
+      width: $(window).width(),
+      height: $(window).height(),
+      hAxis: { title: 'Physiology Score', minValue: 12, maxValue: 88},
+      vAxis: { title: 'Death Rate %', minValue: 0, maxValue: 100 },
+      legend: { position: 'top' },
+
+      annotations: {
+        textStyle: {
+          fontName: 'Arial Black',
+          fontSize: '0.5vm',
+          bold: true,
+          italic: true,
+          color: '#000000',     // The color of the text.
+          auraColor: '#dddddd', // The color of the text outline.
+          opacity: 0.9          // The transparency of the text.
+         }
+  //       boxStyle: {
+  // // Color of the box outline.
+  // stroke: '#888',
+  // // Thickness of the box outline.
+  // strokeWidth: 1,
+  // // x-radius of the corner curvature.
+  // rx: 10,
+  // // y-radius of the corner curvature.
+  // ry: 10
+  // Attributes for linear gradient fill.
+  // gradient: {
+  //   // Start color for gradient.
+  //   color1: '#fbf6a7',
+  //   // Finish color for gradient.
+  //   color2: '#33b679',
+  //   // Where on the boundary to start and
+  //   // end the color1/color2 gradient,
+  //   // relative to the upper left corner
+  //   // of the boundary.
+  //   x1: '0%', y1: '0%',
+  //   x2: '100%', y2: '100%',
+  //   // If true, the boundary for x1,
+  //   // y1, x2, and y2 is the box. If
+  //   // false, it's the entire chart.
+  //   useObjectBoundingBoxUnits: true
+  // }
+      }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+  }
+</script>
+
+
+<div style="width: 100vh; height: 100vh;">
+  <div id="curve_chart"></div>
+  <div style="position: fixed;
+              bottom: 30%;
+              right: 20%;
+              font-family: 'Arial Black';
+              font-size: 2.5vw;">Possum Score = {{ps}}</div>
+  </div>
+
 </div>

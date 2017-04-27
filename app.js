@@ -22,8 +22,11 @@ app.get('/health', function (req, res) {
   res.end();
 })
 
+app.get('/old', function (req, res){
+  res.render('introOLD.hbs', {layout: 'singleOLD.hbs'});
+})
 app.get('/', function (req, res){
-  res.render('intro.hbs');
+  res.render('intro.hbs', {layout: 'single.hbs'});
 })
 app.post('/postdata', urlencodedParser, function (req, res) {
   var doc = { age: req.body.age,
