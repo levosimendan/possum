@@ -1,3 +1,6 @@
+/* Possum 1.0 Release Version */
+
+
 const http         = require('http'),
       fs           = require('fs'),
       path         = require('path'),
